@@ -1,4 +1,6 @@
 from fileflow.scanner import scan_folder
+from fileflow.categories import get_category
+
 folder_path=input("Enter the folder path:\n-> ")
 
 try:
@@ -6,6 +8,8 @@ try:
     print(f"\nFound {len(files)} files:\n")
 
     for file in files:
-        print(file.name)
+        category = get_category(file.name)
+        print(f"{file.name} is {category}")
+
 except (FileNotFoundError, NotADirectoryError) as error:
     print(f"Error: {error}")
