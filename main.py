@@ -1,15 +1,17 @@
-from fileflow.scanner import scan_folder
-from fileflow.categories import get_category
 
-folder_path=input("Enter the folder path:\n-> ")
+from fileflow.organiser import preview_organization, move_file
+
+folder_path = input("Enter folder path: ")
 
 try:
-    files= scan_folder(folder_path)
-    print(f"\nFound {len(files)} files:\n")
+    preview_organization(folder_path)
 
-    for file in files:
-        category = get_category(file.name)
-        print(f"{file.name} is {category}")
+    confirm = input("\nMove these files? (y/n): ")
+
+    if confirm.strip().lower() == "y":
+        move_file(folder_path)
+    else:
+        print("Operation cancelled.")
 
 except (FileNotFoundError, NotADirectoryError) as error:
     print(f"Error: {error}")
